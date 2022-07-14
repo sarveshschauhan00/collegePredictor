@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Masthead-->
+    <header class="masthead bg-primary text-white text-center">
+        <div class="container d-flex align-items-center flex-column">
+            <!-- Masthead Avatar Image-->
+            <img class="mb-5" src="{% static 'assets/img/graduation_image.png' %}" width="300" height="250"/>
+            <!-- Masthead Heading-->
+            <title><h1 class="text-uppercase mb-0">Search your Prefered NIT / IIT / IIIT...</h1></title>
+            <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Masthead Subheading-->
+            <p class="masthead-subheading font-weight-light mb-0">College Predictor - Best College - Top
+                College</p></title>
+            <p>Search your college based on your Rank or Percentile</p>
+        </div>
+    </header>
+    <!-- Rank details Section-->
+    <section class="page-section" id="college_predictor">
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <h4 class="page-section-heading text-center text-uppercase text-secondary mb-0">Enter Your Exam Details</h4>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Contact Section Form-->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-7">
+
+
+                    <div class="form-group">
+                        <form method="post" action="#list_college">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        {{ field.errors }}
+                                        {{ field.label_tag }} {{ field }}
+                                        {% if field.help_text %}
+                                            <p class="help">{{ field.help_text|safe }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <br/>
+                            {% endfor %}
+                            <button class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- List Section-->
+    <section class="page-section bg-primary text-white mb-0" id="list_college">
+        <div class="container">
+            <!-- List Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-white">College List</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <p class="font-monospace">For official list kindly visit:- <strong><a
+                    href="https://josaa.admissions.nic.in/Counseling/seatallotmentresult/currentorcr.aspx"
+                    target="_blank" class="text-light">JoSAA</a></strong></p>
+            <p class="masthead-subheading font-weight-light ">College Opening and Closing Rank based on JEE 2021</p>
+            <strong><p class="text-black" align="right">Calculated rank: {{ rank }}</p></strong>
+            <!-- List Section Content-->
+            <div class="row">
+                <ul class="list-group">
+                    {% if ls_total %}
+                        {% for coll_type, l in ls_total.items %}
+                            <br/>
+                            <p class="h3 text-danger text-center">Predicted {{ coll_type }}</p>
+                            <hr class="rounded">
+                            {% for ls in l %}
+                                {% for ele, val in ls.items %}
+                                    <li class="list-group-item">{{ ele }}</li>
+                                    <ul>
+
+                                        {#                                        <li class="list-group-item">{{ v }}</li>#}
+
+                                        <table class="table-bordered" width="100%">
+                                            <tr>
+                                                <th>Quota</th>
+                                                <th>College</th>
+                                                <th>Catagory</th>
+                                                <th>Gender</th>
+                                                <th>O.R.</th>
+                                                <th>C.R.</th>
+                                            </tr>
+                                            {% for v in val %}
+                                                <tr>
+                                                    {% for t in v %}
+                                                        <td>{{ t }}</td>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </ul>
+                                    <br/>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
