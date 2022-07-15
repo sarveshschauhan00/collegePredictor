@@ -23,8 +23,8 @@ def filturing_college(filt, file_path):
             if row[-4] == filt['catagory'] and row[-4]!='OPEN':
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
-                        if int(row[-2]) - int(filt['main_catagory_rank']) * 0.02 <= int(filt['main_catagory_rank']) <= int(
-                                row[-1]) + int(filt['main_catagory_rank']) * 0.02:
+                        if int(row[-2]) - int(row[-2]) * 0.02 <= int(filt['main_catagory_rank']) <= int(
+                                row[-1]) + int(row[-1]) * 0.02:
                             if row[0] not in ls_dict:
                                 ls_dict[row[0]] = []
                             ls_dict[row[0]].append((row[2], row[1], row[3], row[4], row[5], row[6]))
@@ -34,7 +34,7 @@ def filturing_college(filt, file_path):
             elif row[-4] == 'OPEN' and rank!=None:
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
-                        if int(row[-2]) - rank * 0.02 <= rank <= int(row[-1]) + rank * 0.02:
+                        if int(row[-2]) - int(row[-2]) * 0.02 <= rank <= int(row[-1]) + int(row[-1]) * 0.02:
                             if row[0] not in ls_dict:
                                 ls_dict[row[0]] = []
                             ls_dict[row[0]].append((row[2], row[1], row[3], row[4], row[5], row[6]))
@@ -45,7 +45,7 @@ def filturing_college(filt, file_path):
                 rank = filt['main_catagory_rank']
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
-                        if int(row[-2]) - rank * 0.02 <= rank <= int(row[-1]) + rank * 0.02:
+                        if int(row[-2]) - int(row[-2]) * 0.02 <= rank <= int(row[-1]) + int(row[-1]) * 0.02:
                             if row[0] not in ls_dict:
                                 ls_dict[row[0]] = []
                             ls_dict[row[0]].append((row[2], row[1], row[3], row[4], row[5], row[6]))
@@ -65,8 +65,8 @@ def filturing_iit_college(filt, file_path):
             if row[-4] == filt['catagory'] and row[-4]!='OPEN':
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
-                        if int(row[-2]) - int(filt['advanced_catagory_rank']) * 0.02 <= int(filt['advanced_catagory_rank']) <= int(
-                                row[-1]) + int(filt['advanced_catagory_rank']) * 0.02:
+                        if int(row[-2]) - int(row[-2]) * 0.02 <= int(filt['advanced_catagory_rank']) <= int(
+                                row[-1]) + int(row[-1]) * 0.02:
                             if row[0] not in ls_dict:
                                 ls_dict[row[0]] = []
                             ls_dict[row[0]].append((row[2], row[1], row[3], row[4], row[5], row[6]))
@@ -76,7 +76,7 @@ def filturing_iit_college(filt, file_path):
             elif row[-4] == 'OPEN':
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
-                        if int(row[-2]) - rank * 0.02 <= rank <= int(row[-1]) + rank * 0.02:
+                        if int(row[-2]) - int(row[-2]) * 0.02 <= rank <= int(row[-1]) + int(row[-1]) * 0.02:
                             if row[0] not in ls_dict:
                                 ls_dict[row[0]] = []
                             ls_dict[row[0]].append((row[2], row[1], row[3], row[4], row[5], row[6]))

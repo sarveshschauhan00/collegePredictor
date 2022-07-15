@@ -18,7 +18,7 @@
             <!-- Masthead Subheading-->
             <p class="masthead-subheading font-weight-light mb-0">College Predictor - Best College - Top
                 College</p></title>
-            <p>Search your college based on your Rank or Percentile</p>
+            <p>Find your college based on your Rank or Percentile</p>
         </div>
     </header>
     <!-- Rank details Section-->
@@ -34,15 +34,49 @@
             </div>
             <!-- Contact Section Form-->
             <div class="row justify-content-center">
-                <div class="col-lg-8 col-xl-7">
 
 
+                <div class="col-lg-6">
+                    <h3 class="text-decoration-underline"><header>Disclaimer</header></h3><br/>
+                    <ul>
+                        <li>This website is intended to predict all possible colleges based on preferences filled by
+                            candidates for year 2021 with some rank margin on Opening and Closing ranks
+                        </li><br/>
+                        <li>Every year, seats are added to every branch
+                        </li>
+                        <br/>
+                        <li>Kindly use best of your percentile. Fill fields atmost of your choices
+                        </li>
+                        <br/>
+                        <li>Abbrevations included in JoSAA list for quota:
+                            <ul>
+                                <li>OS: Open State</li>
+                                <li>HS: Home State</li>
+                                <li>AI: All India</li>
+                                <li>LA: Territory of Ladakh</li>
+                                <li>GO: Goa</li>
+                            </ul>
+                        </li>
+                        <br/>
+                        <li>A total number of 8,72,432 candidates were registered and only total of 769589 Students
+                            Appeared For Jee Mains 2022 phase-1 examination
+                        </li>
+                        <br/>
+                        <li>A total number of 2,57,533 female candidates were registered and out of which 2,21,719
+                            female candidates Appeared For Jee Mains 2022 phase-1 examination
+                        </li>
+                        <br/>
+                    </ul>
+                </div>
+
+
+                <div class="col-lg-6">
                     <div class="form-group">
                         <form method="post" action="#list_college">
                             {% csrf_token %}
                             {% for field in form %}
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         {{ field.errors }}
                                         {{ field.label_tag }} {{ field }}
                                         {% if field.help_text %}
@@ -52,7 +86,7 @@
                                 </div>
                                 <br/>
                             {% endfor %}
-                            <button class="btn btn-primary">Submit</button>
+                            <button class="btn btn-primary">Search</button>
                         </form>
                     </div>
                 </div>
@@ -81,13 +115,15 @@
                     {% if ls_total %}
                         {% for coll_type, l in ls_total.items %}
                             <br/>
-                            <p class="h3 text-danger text-center">Predicted {{ coll_type }}</p>
+                            <h3 class="text-center alert-dark">{{ coll_type }}</h3>
                             <hr class="rounded">
                             {% for ls in l %}
                                 {% for ele, val in ls.items %}
                                     <li class="list-group-item">{{ ele }}</li>
 
-                                    <table class="table-bordered" width="100%">
+                                    <div class="container overflow-scroll">
+
+                                    <table class="table-bordered" style="overflow-x: scroll" width="100%">
                                         <tr>
                                             <th>Quota</th>
                                             <th>College</th>
@@ -104,6 +140,7 @@
                                             </tr>
                                         {% endfor %}
                                     </table>
+                                    </div>
                                     <br/>
                                 {% endfor %}
                             {% endfor %}
@@ -114,5 +151,4 @@
         </div>
     </section>
 {% endblock %}
-
 
