@@ -119,8 +119,8 @@ def index(request):
 
     if args!=None:
         cal_rank = 872432 * (100 - args['percentile']) // 100
-        q = RankTable(gender=args['gender'], percentile=args['percentile'], catagory=args['catagory'], main_catagory_rank=args['main_catagory_rank'], advanced_catagory_rank=args['advanced_catagory_rank'], advanced_general_rank=args['advanced_general_rank'])
-        q.save()
+        # q = RankTable(gender=args['gender'], percentile=args['percentile'], catagory=args['catagory'], main_catagory_rank=args['main_catagory_rank'], advanced_catagory_rank=args['advanced_catagory_rank'], advanced_general_rank=args['advanced_general_rank'])
+        # q.save()
     else:
         cal_rank = "Null"
 
