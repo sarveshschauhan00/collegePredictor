@@ -41,7 +41,7 @@ def filturing_college(filt, file_path):
                     except:
                         continue
 
-            elif filt['catagory'] == 'OPEN' and filt['percentile']==None and filt['main_catagory_rank']!=None:
+            elif filt['catagory'] == row[-4] and filt['percentile']==None and filt['main_catagory_rank']!=None:
                 rank = filt['main_catagory_rank']
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
