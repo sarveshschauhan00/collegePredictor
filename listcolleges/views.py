@@ -41,7 +41,7 @@ def filturing_college(filt, file_path):
                     except:
                         continue
 
-            elif row[-4] == 'OPEN' and filt['percentile']==None and filt['main_catagory_rank']=='OPEN':
+            elif filt['catagory'] == 'OPEN' and filt['percentile']==None and filt['main_catagory_rank']!=None:
                 rank = filt['main_catagory_rank']
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
@@ -107,7 +107,7 @@ def print_list(args):
     #         for ele1 in ls[ele]:
     #             print(" " * 8, ele1)
     #         print()
-    return {'N.I.T.':ls_nit, 'I.I.T.':ls_iit, 'I.I.I.T.':ls_iiit, 'Government Funded Colleges':ls_govt_funded}
+    return {'I.I.T.':ls_iit, 'N.I.T.':ls_nit, 'I.I.I.T.':ls_iiit, 'Government Funded Colleges':ls_govt_funded}
 
 
 
