@@ -16,7 +16,7 @@ def filturing_college(filt, file_path):
     ls_dict = {}
     rank = None
     if filt['percentile']!=None:
-        rank = 872432 * (100 - filt['percentile']) // 100
+        rank = 769589 * (100 - filt['percentile']) // 100
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
