@@ -14,30 +14,44 @@ import csv
 
 def filturing_college(filt, file_path):
     ls_dict = {}
-    rank = 872432 * (100 - filt['percentile']) // 100
+    rank = None
+    if filt['percentile']!=None:
+        rank = 872432 * (100 - filt['percentile']) // 100
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             if row[-4] == filt['catagory'] and row[-4]!='OPEN':
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
-                        if int(row[-2]) - int(filt['main_catagory_rank']) * 0.01 <= int(filt['main_catagory_rank']) <= int(
-                                row[-1]) + int(filt['main_catagory_rank']) * 0.01:
+                        if int(row[-2]) - int(filt['main_catagory_rank']) * 0.02 <= int(filt['main_catagory_rank']) <= int(
+                                row[-1]) + int(filt['main_catagory_rank']) * 0.02:
                             if row[0] not in ls_dict:
                                 ls_dict[row[0]] = []
                             ls_dict[row[0]].append((row[2], row[1], row[3], row[4], row[5], row[6]))
                     except:
                         continue
 
-            elif row[-4] == 'OPEN':
+            elif row[-4] == 'OPEN' and rank!=None:
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
-                        if int(row[-2]) - rank * 0.01 <= rank <= int(row[-1]) + rank * 0.01:
+                        if int(row[-2]) - rank * 0.02 <= rank <= int(row[-1]) + rank * 0.02:
                             if row[0] not in ls_dict:
                                 ls_dict[row[0]] = []
                             ls_dict[row[0]].append((row[2], row[1], row[3], row[4], row[5], row[6]))
                     except:
                         continue
+
+            elif row[-4] == 'OPEN' and filt['percentile']==None and filt['main_catagory_rank']!=None:
+                rank = filt['main_catagory_rank']
+                if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
+                    try:
+                        if int(row[-2]) - rank * 0.02 <= rank <= int(row[-1]) + rank * 0.02:
+                            if row[0] not in ls_dict:
+                                ls_dict[row[0]] = []
+                            ls_dict[row[0]].append((row[2], row[1], row[3], row[4], row[5], row[6]))
+                    except:
+                        continue
+
     for coll in ls_dict:
         ls_dict[coll].sort(reverse=True)
     return ls_dict
@@ -118,7 +132,10 @@ def index(request):
         rank_form = RankForm()
 
     if args!=None:
-        cal_rank = 872432 * (100 - args['percentile']) // 100
+        if args['percentile']!=None:
+            cal_rank = 872432 * (100 - args['percentile']) // 100
+        else:
+            cal_rank = "Null"
         # q = RankTable(gender=args['gender'], percentile=args['percentile'], catagory=args['catagory'], main_catagory_rank=args['main_catagory_rank'], advanced_catagory_rank=args['advanced_catagory_rank'], advanced_general_rank=args['advanced_general_rank'])
         # q.save()
     else:

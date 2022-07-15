@@ -14,6 +14,8 @@ class RankTable(models.Model):
                               default='M')
     percentile = models.FloatField(
         validators=[MinValueValidator(0.0), MaxValueValidator(100.0)],
+        blank=True,
+        null=True,
     )
     catagory = models.CharField(max_length=15,
                                 choices=((ele, ele) for ele in ls),
