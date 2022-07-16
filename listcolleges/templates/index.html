@@ -37,11 +37,15 @@
 
 
                 <div class="col-lg-6">
-                    <h3 class="text-decoration-underline"><header>Disclaimer</header></h3><br/>
+                    <h3 class="text-decoration-underline">
+                        <header>Disclaimer</header>
+                    </h3>
+                    <br/>
                     <ul>
                         <li>This website is intended to predict all possible colleges based on preferences filled by
                             candidates for year 2021 with some rank margin on Opening and Closing ranks
-                        </li><br/>
+                        </li>
+                        <br/>
                         <li>Every year, seats are added to every branch
                         </li>
                         <br/>
@@ -69,8 +73,8 @@
                     </ul>
 
                     <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-7728305301915307">
-</amp-auto-ads>
+                                  data-ad-client="ca-pub-7728305301915307">
+                    </amp-auto-ads>
 
                 </div>
 
@@ -117,13 +121,18 @@
             <!-- List Section Content-->
             <div class="row">
                 <ul class="list-group">
+
+
+
+
+
                     {% if ls_total %}
                         {% for coll_type, l in ls_total.items %}
                             <br/>
 
                             <amp-auto-ads type="adsense"
-        data-ad-client="ca-pub-7728305301915307">
-</amp-auto-ads>
+                                          data-ad-client="ca-pub-7728305301915307">
+                            </amp-auto-ads>
                             <h3 class="text-center alert-dark">{{ coll_type }}</h3>
                             <hr class="rounded">
                             {% for ls in l %}
@@ -132,23 +141,24 @@
 
                                     <div class="container overflow-scroll">
 
-                                    <table class="table-bordered" style="overflow-x: scroll" width="100%">
-                                        <tr>
-                                            <th>Quota</th>
-                                            <th>College</th>
-                                            <th>Catagory</th>
-                                            <th>Gender</th>
-                                            <th>O.R.</th>
-                                            <th>C.R.</th>
-                                        </tr>
-                                        {% for v in val %}
+                                        <table class="table-bordered" style="overflow-x: scroll" width="100%"
+                                               name="myTable">
                                             <tr>
-                                                {% for t in v %}
-                                                    <td><small>{{ t }}</small></td>
-                                                {% endfor %}
+                                                <th>Quota</th>
+                                                <th>College</th>
+                                                <th>Catagory</th>
+                                                <th>Gender</th>
+                                                <th>O.R.</th>
+                                                <th>C.R.</th>
                                             </tr>
-                                        {% endfor %}
-                                    </table>
+                                            {% for v in val %}
+                                                <tr>
+                                                    {% for t in v %}
+                                                        <td><small>{{ t }}</small></td>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
                                     </div>
                                     <br/>
                                 {% endfor %}
@@ -159,5 +169,33 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            tables = document.getElementsByClassName("table-bordered");
+            for (t = 0; t < tables.length; t++) {
+                table = tables.item(t)
+
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[1];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+
+
+            }
+        }
+    </script>
+
 {% endblock %}
 
