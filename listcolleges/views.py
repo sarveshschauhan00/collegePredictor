@@ -4,6 +4,9 @@ from .models import RankTable
 from .forms import RankForm
 import csv
 
+def redirect_site(request):
+    return redirect('/', permanent=True)
+
 
 # def index(request):
 #     rank_form = None
