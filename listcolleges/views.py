@@ -15,12 +15,12 @@ import csv
 def filturing_college(filt, file_path):
     ls_dict = {}
     rank = None
-    if filt['percentile']!=None:
+    if filt['percentile'] != None:
         rank = 769589 * (100 - filt['percentile']) // 100
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
-            if row[-4] == filt['catagory'] and row[-4]!='OPEN':
+            if row[-4] == filt['catagory'] and row[-4] != 'OPEN':
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
                         if int(row[-2]) - int(row[-2]) * 0.02 <= int(filt['main_catagory_rank']) <= int(
@@ -31,7 +31,7 @@ def filturing_college(filt, file_path):
                     except:
                         continue
 
-            elif row[-4] == 'OPEN' and rank!=None:
+            elif row[-4] == 'OPEN' and rank != None:
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
                         if int(row[-2]) - int(row[-2]) * 0.02 <= rank <= int(row[-1]) + int(row[-1]) * 0.02:
@@ -41,7 +41,7 @@ def filturing_college(filt, file_path):
                     except:
                         continue
 
-            elif filt['catagory'] == row[-4] and filt['percentile']==None and filt['main_catagory_rank']!=None:
+            elif filt['catagory'] == row[-4] and filt['percentile'] == None and filt['main_catagory_rank'] != None:
                 rank = filt['main_catagory_rank']
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
@@ -56,13 +56,14 @@ def filturing_college(filt, file_path):
         ls_dict[coll].sort(reverse=True)
     return ls_dict
 
+
 def filturing_iit_college(filt, file_path):
     ls_dict = {}
     rank = filt['advanced_general_rank']
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
-            if row[-4] == filt['catagory'] and row[-4]!='OPEN':
+            if row[-4] == filt['catagory'] and row[-4] != 'OPEN':
                 if (filt['gender'] == row[-3] or row[-3] == 'Gender-Neutral'):
                     try:
                         if int(row[-2]) - int(row[-2]) * 0.02 <= int(filt['advanced_catagory_rank']) <= int(
@@ -87,8 +88,6 @@ def filturing_iit_college(filt, file_path):
     return ls_dict
 
 
-
-
 def print_list(args):
     ls_nit = []
     ls_iit = []
@@ -107,12 +106,11 @@ def print_list(args):
     #         for ele1 in ls[ele]:
     #             print(" " * 8, ele1)
     #         print()
-    return {'I.I.T.':ls_iit, 'N.I.T.':ls_nit, 'I.I.I.T.':ls_iiit, 'Government Funded Colleges':ls_govt_funded}
-
+    return {'I.I.T.': ls_iit, 'N.I.T.': ls_nit, 'I.I.I.T.': ls_iiit, 'Government Funded Colleges': ls_govt_funded}
 
 
 def index(request):
-    ls_total=[]
+    ls_total = []
     args = None
     if request.method == 'POST':
         rank_form = RankForm(request.POST)
@@ -128,11 +126,19 @@ def index(request):
             # print(args)
             # print("Rank:-", 872432 * (100 - args['percentile']) // 100)
             ls_total = print_list(args)
+
+            with open('listcolleges/dataset/records.csv', 'a') as f:
+                writer = csv.writer(f)
+                writer.writerow(
+                    [str(args['gender']), str(args['percentile']), str(args['catagory']),
+                     str(args['main_catagory_rank']), str(args['advanced_general_rank']),
+                     str(args['advanced_catagory_rank'])])
+
     else:
         rank_form = RankForm()
 
-    if args!=None:
-        if args['percentile']!=None:
+    if args != None:
+        if args['percentile'] != None:
             cal_rank = 872432 * (100 - args['percentile']) // 100
         else:
             cal_rank = "Null"
@@ -141,7 +147,4 @@ def index(request):
     else:
         cal_rank = "Null"
 
-    return render(request, 'index.html', {'form': rank_form, 'ls_total':ls_total, 'rank':cal_rank})
-
-
-
+    return render(request, 'index.html', {'form': rank_form, 'ls_total': ls_total, 'rank': cal_rank})
